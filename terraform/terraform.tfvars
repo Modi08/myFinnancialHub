@@ -1,0 +1,5 @@
+project_id     = "houseautomations"
+region         = "europe-west4"
+eb_app_id      = "ca8f898c-d201-4521-9814-3fcd63f791dd"
+eb_account_id  = "f6698339-295d-42d9-961e-28f04c65fb1a"
+spreadsheet_id = "1aXMltRbpBeBOJjXJCwlKIMweqg54CsCPVwtT8HrH5_Q"
