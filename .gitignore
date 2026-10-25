@@ -1,0 +1,16 @@
+# Ignore dependency and cache directories
+node_modules/
+__pycache__/
+.terraform/
+
+# Ignore environment and secret files
+.env
+*.tfvars
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore all log and zip files
+*.log
+*.zip
