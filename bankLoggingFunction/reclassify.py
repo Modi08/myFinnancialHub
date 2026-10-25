@@ -14,20 +14,34 @@ def reclassify_sheet(spreadsheet_id: str = None):
         return
 
     headers = data[0]
-    expected_headers = ["Transaction ID", "Date", "Party", "Amount", "Currency", "Category", "Asset Note"]
-
+    
     # Align column positions
+    tx_idx = headers.index("Transaction ID") if "Transaction ID" in headers else 0
     party_idx = headers.index("Party") if "Party" in headers else 2
     amount_idx = headers.index("Amount") if "Amount" in headers else 3
     cat_idx = headers.index("Category") if "Category" in headers else 5
     note_idx = headers.index("Asset Note") if "Asset Note" in headers else 6
 
     updated_count = 0
+    duplicates_removed = 0
+    
+    seen_ids = set()
+    cleaned_data = [headers] # Build a fresh list to avoid list-modification bugs
 
     for row in data[1:]:
         # Pad row if missing trailing columns
-        while len(row) <= note_idx:
+        while len(row) <= max(note_idx, tx_idx):
             row.append("")
+            
+        tx_id = row[tx_idx]
+        
+        # 1. Duplicate Check: Skip if we've already logged this Transaction ID
+        if tx_id and tx_id in seen_ids:
+            duplicates_removed += 1
+            continue
+            
+        if tx_id:
+            seen_ids.add(tx_id)
 
         party = row[party_idx]
         try:
@@ -39,16 +53,28 @@ def reclassify_sheet(spreadsheet_id: str = None):
         raw_amount = abs(amount_val)
 
         new_cat, _, new_note = classify_transaction(party, raw_amount, is_credit)
-        if new_cat == None:
-            data.remove(row)
+
+        # 2. Filtering: Drop rows explicitly returning None from rules.py
+        if new_cat is None:
+            continue
+
+        # 3. Categorization Update
         if row[cat_idx] != new_cat or row[note_idx] != new_note:
             row[cat_idx] = new_cat
             row[note_idx] = new_note
             updated_count += 1
+            
+        cleaned_data.append(row)
 
-    # Overwrite the sheet with the reclassified matrix in a single batch request
-    sheet.update(values=data, range_name="A1")
-    print(f"Reclassification complete. Processed {len(data) - 1} rows. Updated {updated_count} entries.")
+    # 4. Wipe the sheet clean before writing to ensure deleted rows disappear
+    sheet.clear()
+    
+    # 5. Overwrite the sheet with the cleaned matrix in a single batch request
+    sheet.update(values=cleaned_data, range_name="A1")
+    
+    print(f"Reclassification complete. Processed {len(data) - 1} rows.")
+    print(f"Removed {duplicates_removed} duplicates.")
+    print(f"Updated {updated_count} entries.")
 
 if __name__ == "__main__":
     target_sheet = sys.argv[1] if len(sys.argv) > 1 else None
