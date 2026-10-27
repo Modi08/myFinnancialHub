@@ -6,13 +6,13 @@ RULES = [
     # Variable Subscriptions
     (r"(?i)\b(Google Cloud)\b", "Variable - Subscriptions"),
     # Groceries
-    (r"(?i)\b(albert\s*heijn|ah\b|jumbo|dirk|lidl|aldi|ekoplaza|coop|mini[- ]mark[et]|super[- ]market)\b", "Food - Groceries"),
+    (r"(?i)\b(albert\s*heijn|ah\b|jumbo|dirk|lidl|aldi|vomar|ekoplaza|coop|mini[- ]mark[et]|super[- ]market|plus)\b", "Food - Groceries"),
     # Dining
-    (r"(?i)\b(mensa|koffie|starbucks|subway|thuisbezorgd|uber\s*eats|Bck\*has Doner Kebap O. Go|The Doner Company|Sumup  \*economische Fa|restaurant|Smullers|Bck*ns Automaat 3301|Essenza|Maydonoz Rotterdam Bv)\b", "Food - Dining Out"),
+    (r"(?i)\b(mensa|koffie|starbucks|subway|thuisbezorgd|uber\\s\*eats|Bck\*has Doner Kebap O. Go|The Doner Company|Sumup  \*economische Fa|restaurant|Smullers|Bck\*ns Automaat 3301|Essenza|Maydonoz Rotterdam Bv|Mcd |Mimoza|Bck\*triamac|five guys)\b", "Food - Dining Out"),
     # Campus
     (r"(?i)\b(spar\s*university|campus|erasmus\s*food|canteen|Has Doner Kebab Erasmu|Mozza Uni|Erasmus Spo)\b", "Food - Campus"),
     # Micro-mobility & Public Transit (including OVpay 'NLOV...' and NS ticket automats)
-    (r"(?i)\b(check|felyx|bolt|tier|ns\s*groep|ret\b|gvb|arriva|nlov[a-z0-9]+|bck\*nsautomaat.*|nsautomaat|ov-chipkaart/Trans Link Systems|Lime\*[A-Za-z0-9 ]+|Umob)\b", "Transit / Incidental"),
+    (r"(?i)\b(check|felyx|bolt|tier|ns\s*groep|ret\b|gvb|arriva|nlov[a-z0-9]+|bck\*nsautomaat.*|nsautomaat|ov-chipkaart|Lime\*[A-Za-z0-9 ]+|Umob)\b", "Transit / Incidental"),
     # Electronics & Tech Accessories
     (r"(?i)\b(coolblue|mediamarkt|bol\.com|bcc|anker|samsung)\b", "Electronics & Tech"),
     # Clothing & Apparel
@@ -20,7 +20,7 @@ RULES = [
     # Study Supplies & Stationery
     (r"(?i)\b(hema|bruna|studystore|action|staples|boeken|pen|paper)\b", "Study Supplies & Stationery"),
     # Nightlife & Social
-    (r"(?i)\b(bar|caf[e ]|pub|bier|brewery|club|ticket|annabel|rotown|Avondmarkt De Dijk|Venue Maassilo B.v.|TicketingPayments|Ls Mick O Connells Rot|Carbonaro B.v.)\b", "Social & Nightlife"),
+    (r"(?i)\b(bar|caf[e ]|pub|bier|brewery|club|ticket|annabel|rotown|Avondmarkt De Dijk|Maassilo|TicketingPayments|Ls Mick O Connells Rot|carbonaro B\.v|CM\.com|avondwinkel)\b", "Social & Nightlife"),
     # Investments
     (r"(?i)\b(Trading 212)\b", "Investments"),
     # Points Accumulation
